@@ -1,0 +1,30 @@
+{
+	"info": {
+		"_postman_id": "66d3fd03-97fa-45ec-a6b8-d6b7da516bfc",
+		"name": "Otus-hw-3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6913055"
+	},
+	"item": [
+		{
+			"name": "Check health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://arch.homework/health/",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"health",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

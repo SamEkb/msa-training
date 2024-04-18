@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: healthcheck-app-service
+spec:
+  type: ClusterIP
+  selector:
+    env: healthcheck-app-prod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

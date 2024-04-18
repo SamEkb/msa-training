@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthcheck-app-deployment
+  labels:
+    app: healthcheck-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      env: healthcheck-app-prod
+  template:
+    metadata:
+      labels:
+        env: healthcheck-app-prod
+    spec:
+      containers:
+        - name: otus-msa-hw
+          image: kilanov/otus-msa-hw:v3
+          ports:
+          - containerPort: 8000
