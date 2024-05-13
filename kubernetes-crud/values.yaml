@@ -9,7 +9,6 @@ database:
   port: 5432
   name: users
   username: postgres
-  password: cXdlcnR5
 
 deployment:
   image:
@@ -43,8 +42,6 @@ global:
   postgresql:
     auth:
       username: postgres
-      password: cXdlcnR5
-      postgresPassword: cXdlcnR5
       secretKeys:
         adminPasswordKey: postgres-password
         userPasswordKey: postgres-password
