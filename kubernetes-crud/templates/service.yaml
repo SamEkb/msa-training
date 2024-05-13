@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: users-service
+  name: {{ .Release.Name }}-service
 spec:
   selector:
-    env: healthcheck-app-prod
-#    env: {{ .Release.Name }}
+    env: {{ .Release.Name }}
   type: {{ .Values.service.type }}
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8000
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.deployment.container.port }}

@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: healthcheck-app-deployment
+  name: {{ .Release.Name }}-deployment
   labels:
-    app: healthcheck-app-deployment
+    app: {{ .Release.Name }}-deployment
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      env: healthcheck-app-prod
+      env: {{ .Release.Name }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        env: healthcheck-app-prod
+        env: {{ .Release.Name }}
     spec:
       containers:
         - name: {{ .Release.Name }}
