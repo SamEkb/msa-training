@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  database.host: "{{ .Release.Name }}-postgresql"
+  database.port: "{{ .Values.database.port }}"
+  database.name: "{{ .Values.database.name }}"
+  database.username: "{{ .Values.database.username }}"
+  server.port: "{{ .Values.server.port }}"

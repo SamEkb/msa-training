@@ -1,0 +1,56 @@
+replicaCount: 2
+
+name: users-crud-app
+
+server:
+  port: 8000
+
+database:
+  port: 5432
+  name: users
+  username: postgres
+  password: cXdlcnR5
+
+deployment:
+  image:
+    repository: kilanov/otus-msa-hw2:v11
+  container:
+    port: 8000
+
+ingress:
+  enabled: true
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  hosts:
+    - host: arch.homework
+      paths:
+        - path: /user
+          pathType: Prefix
+        - path: /user/[0-9]+
+          pathType: ImplementationSpecific
+
+job:
+  namespace: default
+  image:
+    repository: bitnami/postgresql:13.15.0
+
+service:
+  type: ClusterIP
+  port: 80
+
+global:
+  postgresql:
+    auth:
+      username: postgres
+      password: cXdlcnR5
+      postgresPassword: cXdlcnR5
+      secretKeys:
+        adminPasswordKey: postgres-password
+        userPasswordKey: postgres-password
+      database: users
+      existingSecret: users-secret
+      host: users-postgresql
+    service:
+      ports:
+        postgresql: 5432

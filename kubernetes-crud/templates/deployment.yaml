@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthcheck-app-deployment
+  labels:
+    app: healthcheck-app-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      env: healthcheck-app-prod
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        env: healthcheck-app-prod
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.deployment.image.repository }}
+          envFrom:
+              - configMapRef:
+                     name: {{ .Release.Name }}-configmap
+          env:
+              - name: DB_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: {{ .Release.Name }}-configmap
+                    key: database.host
+              - name: DB_PORT
+                valueFrom:
+                  configMapKeyRef:
+                    name: {{ .Release.Name }}-configmap
+                    key: database.port
+              - name: DB_NAME
+                valueFrom:
+                  configMapKeyRef:
+                    name: {{ .Release.Name }}-configmap
+                    key: database.name
+              - name: DB_USERNAME
+                valueFrom:
+                  configMapKeyRef:
+                   name: {{ .Release.Name }}-configmap
+                   key: database.username
+              - name: SERVER_PORT
+                valueFrom:
+                  configMapKeyRef:
+                   name: {{ .Release.Name }}-configmap
+                   key: server.port
+              - name: DB_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .Release.Name }}-secret
+                    key: postgres-password
+          ports:
+            - containerPort: {{ .Values.deployment.container.port }}
