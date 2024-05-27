@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-job
+  namespace: {{ .Values.job.namespace }}
+spec:
+  ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-job
+          image: {{ .Values.job.image.repository }}
+          command: ["createdb"]
+          args: ["-h","{{ .Release.Name }}-postgresql", "-U", "postgres", "users"]
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-secret
+                  key: postgres-password
+      restartPolicy: Never
