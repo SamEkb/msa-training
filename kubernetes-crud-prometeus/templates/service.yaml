@@ -12,8 +12,4 @@ spec:
     - protocol: TCP
       port: {{ .Values.service.port }}
       targetPort: {{ .Values.deployment.container.port }}
-      name: api
-    - protocol: TCP
-      port: {{ .Values.deployment.container.port }}
-      targetPort: {{ .Values.deployment.container.port }}
       name: metrics

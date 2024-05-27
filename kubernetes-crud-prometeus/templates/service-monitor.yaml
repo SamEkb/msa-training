@@ -8,7 +8,7 @@ spec:
   endpoints:
     - port: metrics
       scrapeTimeout: 30s
-      path: /metrics
+      path: /actuator/prometheus
       honorLabels: true
       scheme: http
   namespaceSelector:
