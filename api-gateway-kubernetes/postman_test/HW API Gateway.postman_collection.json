@@ -551,13 +551,8 @@
 			"value": ""
 		},
 		{
-			"key": "baseUrl1",
-			"value": "arch.homework",
-			"type": "string"
-		},
-		{
 			"key": "baseUrl",
-			"value": "localhost:8000",
+			"value": "arch.homework",
 			"type": "string"
 		}
 	]
